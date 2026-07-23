@@ -1,0 +1,13 @@
+# Secrets
+.env
+
+# Angular
+node_modules/
+dist/
+
+# Java
+target/
+
+# IDE
+.vscode/
+.idea/

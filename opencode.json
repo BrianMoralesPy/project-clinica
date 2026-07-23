@@ -1,0 +1,31 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "mcp": {
+        "context7": {
+            "type": "remote",
+            "url": "https://mcp.context7.com/mcp",
+            "headers":{
+                "CONTEXT7_TOKEN": "${CONTEXT7_TOKEN}"
+            },
+            "enabled": true
+        },
+        "github": {
+            "type": "local",
+            "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
+            "enabled": true,
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+            }
+        },
+        "supabase": {
+            "type": "remote",
+            "url": "https://mcp.supabase.com/mcp",
+            "enabled": true
+        },
+        "filesystem": {
+            "type": "local",
+            "command": ["npx", "-y", "@modelcontextprotocol/server-filesystem", "D:/PROYECTOS/project-clinica"],
+            "enabled": true
+        }
+    }
+}
