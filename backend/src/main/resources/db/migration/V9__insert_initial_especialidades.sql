@@ -1,0 +1,16 @@
+INSERT INTO especialidad (nombre, descripcion) VALUES
+    ('Clínica General', 'Medicina general y preventiva'),
+    ('Cardiología', 'Especialidad del corazón y sistema cardiovascular'),
+    ('Pediatría', 'Atención médica de niños y adolescentes'),
+    ('Ginecología', 'Salud de la mujer'),
+    ('Traumatología', 'Lesiones del sistema musculoesquelético'),
+    ('Dermatología', 'Enfermedades de la piel'),
+    ('Oftalmología', 'Enfermedades de los ojos'),
+    ('Otorrinolaringología', 'Enfermedades de oídos, nariz y garganta'),
+    ('Urología', 'Enfermedades del sistema urinario'),
+    ('Endocrinología', 'Enfermedades hormonales y metabólicas'),
+    ('Neurología', 'Enfermedades del sistema nervioso'),
+    ('Psiquiatría', 'Salud mental y trastornos psiquiátricos'),
+    ('Gastroenterología', 'Enfermedades del sistema digestivo'),
+    ('Neumonología', 'Enfermedades del sistema respiratorio'),
+    ('Nefrología', 'Enfermedades renales');
