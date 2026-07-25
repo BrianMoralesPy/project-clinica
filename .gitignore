@@ -4,10 +4,26 @@
 # Angular
 node_modules/
 dist/
+.angular/
 
-# Java
+# Java / Maven
 target/
+*.class
+*.jar
+*.war
 
 # IDE
 .vscode/
 .idea/
+*.iml
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Supabase
+supabase/.temp/
