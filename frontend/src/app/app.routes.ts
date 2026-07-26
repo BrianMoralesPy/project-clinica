@@ -4,6 +4,11 @@ import { LayoutComponent } from './layout/layout.component';
 
 export const routes: Routes = [
   {
+    path: 'bienvenida',
+    loadComponent: () => import('./features/auth/pages/bienvenida-page/bienvenida-page.component')
+      .then(m => m.BienvenidaComponent)
+  },
+  {
     path: 'login',
     loadComponent: () => import('./features/auth/pages/login-page/login-page.component')
       .then(m => m.LoginPageComponent)
@@ -12,6 +17,11 @@ export const routes: Routes = [
     path: 'register',
     loadComponent: () => import('./features/auth/pages/register-page/register-page.component')
       .then(m => m.RegisterPageComponent)
+  },
+  {
+    path: '',
+    redirectTo: 'bienvenida',
+    pathMatch: 'full'
   },
   {
     path: '',

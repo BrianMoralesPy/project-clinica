@@ -1,0 +1,80 @@
+<div class="login-container">
+    <mat-card class="login-card">
+        
+        <!-- Área de Branding -->
+        <div class="brand-header">
+            <div class="logo-circle">
+                <mat-icon>health_and_safety</mat-icon>
+            </div>
+            <h1 class="clinic-name">Clínica Nova</h1>
+            <p class="clinic-subtitle">Portal de Gestión Médica</p>
+        </div>
+
+        <mat-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                
+                <mat-form-field appearance="outline" class="full-width custom-field">
+                    <mat-label>Usuario o DNI</mat-label>
+                    <input 
+                        matInput 
+                        formControlName="username" 
+                        placeholder="Ej: nombre.apellido" 
+                        autocomplete="username"
+                    />
+                    <mat-icon matPrefix class="input-icon">account_circle</mat-icon>
+                    @if (loginForm.controls.username.hasError('required') && loginForm.controls.username.touched) {
+                        <mat-error>El usuario es obligatorio</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width custom-field">
+                    <mat-label>Contraseña</mat-label>
+                    <input
+                        matInput
+                        [type]="hidePassword() ? 'password' : 'text'"
+                        formControlName="password"
+                        autocomplete="current-password"
+                    />
+                    <mat-icon matPrefix class="input-icon">lock_outline</mat-icon>
+                    <button
+                        mat-icon-button
+                        matSuffix
+                        type="button"
+                        (click)="hidePassword.set(!hidePassword())"
+                        aria-label="Alternar visibilidad de contraseña"
+                    >
+                        <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+
+                    @if (loginForm.controls.password.hasError('required') && loginForm.controls.password.touched) {
+                        <mat-error>La contraseña es obligatoria</mat-error>
+                    }
+                </mat-form-field>
+
+                @if (errorMessage()) {
+                    <div class="error-message">
+                        <mat-icon>error_outline</mat-icon>
+                        <span>{{ errorMessage() }}</span>
+                    </div>
+                }
+
+                <button
+                    mat-flat-button
+                    type="submit"
+                    class="submit-button full-width"
+                    [disabled]="loginForm.invalid || isLoading()"
+                >
+                    @if (isLoading()) {
+                        <span>Verificando credenciales...</span>
+                    } @else {
+                        <span>Ingresar al Sistema</span>
+                    }
+                </button>
+            </form>
+        </mat-card-content>
+
+        <mat-card-actions class="card-footer">
+            <a routerLink="/register" class="register-link">¿Personal nuevo? Solicitar acceso</a>
+        </mat-card-actions>
+    </mat-card>
+</div>

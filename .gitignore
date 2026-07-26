@@ -27,3 +27,10 @@ Thumbs.db
 
 # Supabase
 supabase/.temp/
+
+# docs ia
+.agents
+AGENTS.md
+nul
+opencode.json
+skills-lock.json

@@ -1,0 +1,188 @@
+<div class="landing-container">
+    <!-- Top Bar (Info rápida y contacto) -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <span class="contact-item"><mat-icon>phone</mat-icon> Call Center: 0800-333-NOVA</span>
+            <span class="contact-item urgencias"><mat-icon>emergency</mat-icon> Urgencias: 4367-6737</span>
+        </div>
+    </div>
+
+    <!-- Barra de Navegación Principal -->
+    <header class="navbar">
+    <div class="brand">
+        <div class="logo-circle-small">
+            <mat-icon>health_and_safety</mat-icon>
+        </div>
+        <div class="brand-text">
+            <span class="brand-name">Clínica Nova</span>
+            <span class="brand-sub">Health Institute</span>
+        </div>
+    </div>
+    <div class="nav-links hide-mobile">
+        <a class="nav-item">Especialidades</a>
+        <a class="nav-item">Servicios</a>
+        <a class="nav-item">Información al Paciente</a>
+    </div>
+    <div class="nav-actions">
+        <a mat-stroked-button color="primary" routerLink="/register" class="nav-btn-outline hide-mobile">Crear Cuenta</a>
+        <a mat-flat-button color="primary" routerLink="/login" class="nav-btn">
+        <mat-icon>person</mat-icon> Portal Paciente
+        </a>
+    </div>
+    </header>
+
+    <main>
+        <!-- Sección Hero (Banner principal) -->
+        <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="badge">Bienvenido a tu nueva clínica</span>
+            <h1 class="hero-title">Innovación, confort y atención médica de <span class="highlight">primer nivel</span></h1>
+            <p class="hero-subtitle">
+            Más de 30 especialidades, diagnóstico de última generación y atención las 24 horas para cuidar tu salud y la de tu familia.
+            </p>
+            <div class="hero-actions">
+                <a mat-flat-button color="primary" routerLink="/login" class="btn-large">
+                    <mat-icon>event_available</mat-icon> Reservar Turno
+                </a>
+                <a mat-stroked-button class="btn-large btn-white" routerLink="/register">
+                    Conocé Más
+                </a>
+            </div>
+        </div>
+        </section>
+
+        <!-- Banner de estadísticas / Info rápida -->
+        <div class="stats-banner">
+            <div class="stat-item">
+                <mat-icon>group</mat-icon>
+                <div class="stat-text">
+                    <strong>+1500</strong>
+                    <span>Profesionales de salud</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <mat-icon>local_hospital</mat-icon>
+                <div class="stat-text">
+                    <strong>30+</strong>
+                    <span>Especialidades Médicas</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <mat-icon>access_time</mat-icon>
+                <div class="stat-text">
+                    <strong>24hs</strong>
+                    <span>Guardia Permanente</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sectores Destacados (Inspirado en la clínica de referencia) -->
+        <section class="services-section">
+        <div class="section-header">
+            <h2>Sectores Destacados</h2>
+            <div class="header-divider"></div>
+            <p>Acceda de forma rápida a nuestros servicios principales y gestione su atención de manera online.</p>
+        </div>
+        
+        <div class="cards-grid">
+            <!-- Tarjeta 1: Portal / Diagnóstico -->
+            <mat-card class="service-card" matRipple routerLink="/login">
+                <div class="card-icon-wrapper portal-bg">
+                    <mat-icon>computer</mat-icon>
+                </div>
+                <mat-card-content>
+                    <h3>Portal Web y Resultados</h3>
+                    <p>Consulte resultados de análisis de laboratorio, diagnósticos por imagen e historia clínica.</p>
+                    <span class="card-link">Ingresar <mat-icon>arrow_forward</mat-icon></span>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- Tarjeta 2: Guardia 24hs -->
+            <mat-card class="service-card" matRipple>
+            <div class="card-icon-wrapper guardia-bg">
+                <mat-icon>emergency</mat-icon>
+            </div>
+            <mat-card-content>
+                <h3>Guardia 24hs</h3>
+                <p>Atención de urgencias pediátricas y adultos los 365 días del año. Shock room equipado.</p>
+                <span class="card-link">Ver protocolos <mat-icon>arrow_forward</mat-icon></span>
+            </mat-card-content>
+            </mat-card>
+
+            <!-- Tarjeta 3: Consultorios -->
+            <mat-card class="service-card" matRipple routerLink="/login">
+            <div class="card-icon-wrapper consultorios-bg">
+                <mat-icon>medical_services</mat-icon>
+            </div>
+            <mat-card-content>
+                <h3>Consultorios Externos</h3>
+                <p>Reserve su turno de manera rápida con nuestros especialistas directamente desde el portal.</p>
+                <span class="card-link">Ver especialidades <mat-icon>arrow_forward</mat-icon></span>
+            </mat-card-content>
+            </mat-card>
+
+            <!-- Tarjeta 4: Internación -->
+            <mat-card class="service-card" matRipple>
+            <div class="card-icon-wrapper internacion-bg">
+                <mat-icon>bed</mat-icon>
+            </div>
+            <mat-card-content>
+                <h3>Internaciones</h3>
+                <p>Estadías confortables con altos estándares de seguridad. Habitaciones en suite disponibles.</p>
+                <span class="card-link">Conocer más <mat-icon>arrow_forward</mat-icon></span>
+            </mat-card-content>
+            </mat-card>
+        </div>
+        </section>
+
+        <!-- Call to Action Banner -->
+        <section class="cta-banner">
+        <div class="cta-content">
+            <h2>¿Necesita gestionar recetas para medicación crónica?</h2>
+            <p>A través de nuestro sistema de recetas online puede solicitar la renovación sin moverse de su casa.</p>
+            <button mat-raised-button color="accent" class="btn-accent" routerLink="/login">
+            Solicitar Receta Online
+            </button>
+        </div>
+        </section>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+    <div class="footer-grid">
+        <div class="footer-col brand-col">
+        <div class="brand-footer">
+            <div class="logo-circle-small footer-logo">
+            <mat-icon>health_and_safety</mat-icon>
+            </div>
+            <span>Clínica Nova</span>
+        </div>
+        <p class="footer-desc">Comprometidos en brindar cada día una excelente atención, eficiencia y con un trato cálido y cordial.</p>
+        </div>
+        
+        <div class="footer-col">
+        <h4>Institucional</h4>
+        <ul>
+            <li><a>Nosotros</a></li>
+            <li><a>Especialidades Médicas</a></li>
+            <li><a>Obras Sociales y Prepagas</a></li>
+            <li><a>Trabajá con nosotros</a></li>
+        </ul>
+        </div>
+
+        <div class="footer-col">
+        <h4>Información Útil</h4>
+        <ul>
+            <li><a>Preparación para estudios</a></li>
+            <li><a>Reglamento de visitas</a></li>
+            <li><a>Preguntas frecuentes</a></li>
+            <li><a>Contacto</a></li>
+        </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Clínica Nova. Todos los derechos reservados. | Términos y Condiciones</p>
+    </div>
+    </footer>
+</div>
