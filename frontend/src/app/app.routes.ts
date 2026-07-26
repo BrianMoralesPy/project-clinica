@@ -29,9 +29,29 @@ export const routes: Routes = [
           .then(m => m.PacienteListComponent)
       },
       {
+        path: 'pacientes/nuevo',
+        loadComponent: () => import('./features/pacientes/pages/paciente-form/paciente-form.component')
+          .then(m => m.PacienteFormComponent)
+      },
+      {
+        path: 'pacientes/:id',
+        loadComponent: () => import('./features/pacientes/pages/paciente-form/paciente-form.component')
+          .then(m => m.PacienteFormComponent)
+      },
+      {
         path: 'medicos',
         loadComponent: () => import('./features/medicos/pages/medico-list/medico-list.component')
           .then(m => m.MedicoListComponent)
+      },
+      {
+        path: 'medicos/nuevo',
+        loadComponent: () => import('./features/medicos/pages/medico-form/medico-form.component')
+          .then(m => m.MedicoFormComponent)
+      },
+      {
+        path: 'medicos/:id',
+        loadComponent: () => import('./features/medicos/pages/medico-form/medico-form.component')
+          .then(m => m.MedicoFormComponent)
       },
       {
         path: 'especialidades',
@@ -42,6 +62,11 @@ export const routes: Routes = [
         path: 'turnos',
         loadComponent: () => import('./features/turnos/pages/turno-list/turno-list.component')
           .then(m => m.TurnoListComponent)
+      },
+      {
+        path: 'turnos/nuevo',
+        loadComponent: () => import('./features/turnos/pages/turno-form/turno-form.component')
+          .then(m => m.TurnoFormComponent)
       },
       {
         path: 'usuarios',
