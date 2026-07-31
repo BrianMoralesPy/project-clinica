@@ -1,0 +1,2 @@
+INSERT INTO rol(nombre)
+VALUES ('PACIENTE');

@@ -16,20 +16,22 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Optional<Usuario> findByEmail(String email);
 
+    Optional<Usuario> findByUsernameOrEmail(String username,String email);
+    
     boolean existsByUsername(String username);
 
     boolean existsByEmail(String email);
 
     @Query("SELECT u FROM Usuario u WHERE " +
-           "(:search IS NULL OR :search = '' OR " +
-           "LOWER(u.nombre) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
-           "LOWER(u.apellido) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
-           "LOWER(u.username) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
-           "LOWER(u.email) LIKE LOWER(CONCAT('%', :search, '%'))) " +
-           "AND (:estado IS NULL OR u.estado = :estado)")
-    Page<Usuario> findBySearchAndEstado(
-        @Param("search") String search,
-        @Param("estado") EstadoUsuario estado,
-        Pageable pageable
-    );
+        "(:search IS NULL OR :search = '' OR " +
+        "LOWER(u.nombre) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+        "LOWER(u.apellido) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+        "LOWER(u.username) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+        "LOWER(u.email) LIKE LOWER(CONCAT('%', :search, '%'))) " +
+        "AND (:estado IS NULL OR u.estado = :estado)")
+    
+        
+    Page<Usuario> findBySearchAndEstado(@Param("search") String search, @Param("estado") EstadoUsuario estado, Pageable pageable);
+
+    
 }

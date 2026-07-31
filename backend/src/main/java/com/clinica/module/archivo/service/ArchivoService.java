@@ -32,7 +32,7 @@ public class ArchivoService {
 
     @Transactional
     public ArchivoAdjuntoResponse upload(MultipartFile file, EntidadTipo entidadTipo, Long entidadId,
-                                          String bucket, Long subidoPorId) throws IOException {
+                                        String bucket, Long subidoPorId) throws IOException {
         if (file.isEmpty()) {
             throw new BadRequestException("El archivo está vacío");
         }

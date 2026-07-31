@@ -17,40 +17,90 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Configuración principal de Spring Security.
+ *
+ * Define:
+ * - Qué rutas requieren autenticación.
+ * - Qué rutas son públicas.
+ * - Cómo se validan los JWT.
+ * - Cómo se encriptan las contraseñas.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
+        /**
+         * Filtro encargado de validar el JWT enviado
+         * en cada petición antes de que llegue al controlador.
+         */
+        private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+        /**
+         * Configura las reglas de seguridad de toda la aplicación.
+         */
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception {
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(AbstractHttpConfigurer::disable)
-            .sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .requestMatchers("/actuator/**").permitAll()
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                return http
 
-        return http.build();
-    }
+                        // La API utiliza JWT, por lo que no necesita protección CSRF.
+                        .csrf(AbstractHttpConfigurer::disable)
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
+                        // Nunca se almacenarán sesiones en el servidor.
+                        .sessionManagement(session ->
+                                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        )
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+                        .authorizeHttpRequests(auth -> auth
+
+                                // Endpoints públicos para autenticación.
+                                .requestMatchers("/api/auth/**").permitAll()
+
+                                // Documentación pública.
+                                .requestMatchers(
+                                        "/swagger-ui/**",
+                                        "/v3/api-docs/**"
+                                ).permitAll()
+
+                                // Actuator público (opcional según el entorno).
+                                .requestMatchers("/actuator/**").permitAll()
+
+                                // Permite las solicitudes OPTIONS utilizadas por CORS.
+                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                                // Cualquier otra petición requiere autenticación.
+                                .anyRequest().authenticated()
+                        )
+
+                        // El filtro JWT se ejecutará antes del filtro
+                        // de autenticación estándar de Spring Security.
+                        .addFilterBefore(
+                                jwtAuthenticationFilter,
+                                UsernamePasswordAuthenticationFilter.class
+                        )
+
+                        .build();
+        }
+
+        /**
+         * Expone el AuthenticationManager como un Bean para
+         * poder utilizarlo durante el proceso de login.
+         */
+        @Bean
+        public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)throws Exception {
+                return configuration.getAuthenticationManager();
+        }
+
+        /**
+         * Encoder utilizado para almacenar las contraseñas
+         * de forma segura utilizando BCrypt.
+         *
+         * Nunca se guarda una contraseña en texto plano.
+         */
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 }
