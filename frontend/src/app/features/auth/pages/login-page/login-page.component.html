@@ -14,16 +14,16 @@
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 
                 <mat-form-field appearance="outline" class="full-width custom-field">
-                    <mat-label>Usuario o DNI</mat-label>
+                    <mat-label>Usuario o Correo Electrónico</mat-label>
                     <input 
                         matInput 
-                        formControlName="username" 
-                        placeholder="Ej: nombre.apellido" 
+                        formControlName="identifier" 
+                        placeholder="Ej: usuario o correo" 
                         autocomplete="username"
                     />
                     <mat-icon matPrefix class="input-icon">account_circle</mat-icon>
-                    @if (loginForm.controls.username.hasError('required') && loginForm.controls.username.touched) {
-                        <mat-error>El usuario es obligatorio</mat-error>
+                    @if (loginForm.controls.identifier.hasError('required') && loginForm.controls.identifier.touched) {
+                        <mat-error>El usuario o email es obligatorio</mat-error>
                     }
                 </mat-form-field>
 
