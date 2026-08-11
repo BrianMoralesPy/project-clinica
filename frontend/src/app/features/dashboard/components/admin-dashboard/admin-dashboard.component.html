@@ -1,0 +1,45 @@
+<div class="container">
+    <h2>Dashboard</h2>
+
+    <div class="stats-grid">
+    <mat-card class="stat-card">
+        <mat-card-content>
+        <mat-icon class="stat-icon patients">people</mat-icon>
+        <div class="stat-value">{{ data()?.totalPacientes || 0 }}</div>
+        <div class="stat-label">Pacientes</div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+        <mat-card-content>
+        <mat-icon class="stat-icon medicos">medical_services</mat-icon>
+        <div class="stat-value">{{ data()?.totalMedicos || 0 }}</div>
+        <div class="stat-label">Médicos</div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+        <mat-card-content>
+        <mat-icon class="stat-icon especialidades">science</mat-icon>
+        <div class="stat-value">{{ data()?.totalEspecialidades || 0 }}</div>
+        <div class="stat-label">Especialidades</div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+        <mat-card-content>
+        <mat-icon class="stat-icon turnos">event</mat-icon>
+        <div class="stat-value">{{ data()?.turnosPendientes || 0 }}</div>
+        <div class="stat-label">Turnos Pendientes</div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+        <mat-card-content>
+        <mat-icon class="stat-icon completados">check_circle</mat-icon>
+        <div class="stat-value">{{ data()?.turnosCompletados || 0 }}</div>
+        <div class="stat-label">Turnos Completados</div>
+        </mat-card-content>
+    </mat-card>
+    </div>
+</div>

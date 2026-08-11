@@ -1,7 +1,8 @@
 package com.clinica.module.medico.repository;
 
 import com.clinica.module.medico.entity.Medico;
-import com.clinica.shared.EstadoMedico;
+import com.clinica.shared.EstadoUsuario;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,12 +15,15 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
 
     boolean existsByMatricula(String matricula);
 
-    @Query("SELECT m FROM Medico m WHERE " +
-           "(:especialidadId IS NULL OR m.especialidad.id = :especialidadId) AND " +
-           "(:estado IS NULL OR m.estado = :estado)")
+   @Query("""
+        SELECT m
+        FROM Medico m
+        WHERE (:especialidadId IS NULL OR m.especialidad.id = :especialidadId)
+        AND (:estado IS NULL OR m.usuario.estado = :estado)
+        """)
     Page<Medico> findByFilters(
         @Param("especialidadId") Long especialidadId,
-        @Param("estado") EstadoMedico estado,
+        @Param("estado") EstadoUsuario estado,
         Pageable pageable
     );
 }

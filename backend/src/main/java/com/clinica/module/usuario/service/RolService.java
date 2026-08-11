@@ -22,15 +22,12 @@ public class RolService {
 
     @Transactional(readOnly = true)
     public List<RolResponse> findAll() {
-        return rolRepository.findAll().stream()
-            .map(RolMapper::toResponse)
-            .toList();
+        return rolRepository.findAll().stream().map(RolMapper::toResponse).toList();
     }
 
     @Transactional(readOnly = true)
     public RolResponse findById(Long id) {
-        Rol rol = rolRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Rol", id));
+        Rol rol = rolRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Rol", id));
         return RolMapper.toResponse(rol);
     }
 
@@ -50,8 +47,7 @@ public class RolService {
 
     @Transactional
     public RolResponse update(Long id, ActualizarRolRequest request) {
-        Rol rol = rolRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Rol", id));
+        Rol rol = rolRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Rol", id));
 
         if (!rol.getNombre().equals(request.nombre())) {
             if (rolRepository.existsByNombre(request.nombre())) {

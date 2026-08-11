@@ -13,8 +13,8 @@ public final class MedicoMapper {
     public static MedicoResponse toResponse(Medico entity) {
         return new MedicoResponse(
             entity.getId(),
-            entity.getNombre(),
-            entity.getApellido(),
+            entity.getUsuario().getNombre(),
+            entity.getUsuario().getApellido(),
             entity.getDni(),
             entity.getMatricula(),
             new EspecialidadResumen(
@@ -22,8 +22,8 @@ public final class MedicoMapper {
                 entity.getEspecialidad().getNombre()
             ),
             entity.getTelefono(),
-            entity.getEmail(),
-            entity.getEstado().name(),
+            entity.getUsuario().getEmail(),
+            entity.getUsuario().getEstado().name(),
             entity.getCreatedAt() != null ? entity.getCreatedAt().atZone(ZoneOffset.UTC).toInstant() : null
         );
     }

@@ -10,7 +10,7 @@ import com.clinica.module.medico.dto.MedicoResponse;
 import com.clinica.module.medico.entity.Medico;
 import com.clinica.module.medico.mapper.MedicoMapper;
 import com.clinica.module.medico.repository.MedicoRepository;
-import com.clinica.shared.EstadoMedico;
+import com.clinica.shared.EstadoUsuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +25,7 @@ public class MedicoService {
     private final EspecialidadRepository especialidadRepository;
 
     @Transactional(readOnly = true)
-    public Page<MedicoResponse> findAll(Long especialidadId, EstadoMedico estado, Pageable pageable) {
+    public Page<MedicoResponse> findAll(Long especialidadId, EstadoUsuario estado, Pageable pageable) {
         return medicoRepository.findByFilters(especialidadId, estado, pageable)
             .map(MedicoMapper::toResponse);
     }
@@ -50,13 +50,11 @@ public class MedicoService {
             .orElseThrow(() -> new ResourceNotFoundException("Especialidad", request.especialidadId()));
 
         Medico medico = new Medico();
-        medico.setNombre(request.nombre());
-        medico.setApellido(request.apellido());
         medico.setDni(request.dni());
         medico.setMatricula(request.matricula());
         medico.setEspecialidad(especialidad);
         medico.setTelefono(request.telefono());
-        medico.setEmail(request.email());
+        medico.setFechaNacimiento(null);
 
         medico = medicoRepository.save(medico);
         return MedicoMapper.toResponse(medico);
@@ -70,11 +68,11 @@ public class MedicoService {
         Especialidad especialidad = especialidadRepository.findById(request.especialidadId())
             .orElseThrow(() -> new ResourceNotFoundException("Especialidad", request.especialidadId()));
 
-        medico.setNombre(request.nombre());
-        medico.setApellido(request.apellido());
+        medico.setDni("123456");
         medico.setEspecialidad(especialidad);
+        medico.setMatricula("123456");
         medico.setTelefono(request.telefono());
-        medico.setEmail(request.email());
+        medico.setFechaNacimiento(null);
 
         medico = medicoRepository.save(medico);
         return MedicoMapper.toResponse(medico);
@@ -93,11 +91,11 @@ public class MedicoService {
         Medico medico = medicoRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Medico", id));
 
-        try {
-            medico.setEstado(EstadoMedico.valueOf(nuevoEstado.toUpperCase()));
+        /* try {
+            medico.setEstado(EstadoUsuario.valueOf(nuevoEstado.toUpperCase()));
         } catch (IllegalArgumentException e) {
             throw new BadRequestException("Estado no válido: " + nuevoEstado);
-        }
+        } */
 
         medico = medicoRepository.save(medico);
         return MedicoMapper.toResponse(medico);

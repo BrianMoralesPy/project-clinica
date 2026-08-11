@@ -16,13 +16,13 @@ public final class TurnoMapper {
             entity.getId(),
             new ResumenPaciente(
                 entity.getPaciente().getId(),
-                entity.getPaciente().getNombre(),
-                entity.getPaciente().getApellido()
+                entity.getPaciente().getUsuario().getNombre(),
+                entity.getPaciente().getUsuario().getApellido()
             ),
             new ResumenMedico(
                 entity.getMedico().getId(),
-                entity.getMedico().getNombre(),
-                entity.getMedico().getApellido(),
+                entity.getMedico().getUsuario().getNombre(),
+                entity.getMedico().getUsuario().getApellido(),
                 entity.getMedico().getEspecialidad().getNombre()
             ),
             entity.getFechaHora(),

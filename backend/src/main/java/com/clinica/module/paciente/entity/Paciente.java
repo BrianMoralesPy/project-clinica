@@ -1,7 +1,7 @@
 package com.clinica.module.paciente.entity;
 
+import com.clinica.module.usuario.entity.Usuario;
 import com.clinica.shared.BaseEntity;
-import com.clinica.shared.EstadoPaciente;
 import com.clinica.shared.GrupoSanguineo;
 import com.clinica.shared.Sexo;
 import jakarta.persistence.*;
@@ -16,31 +16,26 @@ import java.time.LocalDate;
 @Setter
 public class Paciente extends BaseEntity {
 
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @MapsId
+    @JoinColumn(name = "id")
+    private Usuario usuario;
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
-    private String nombre;
-
-    @Column(nullable = false, length = 100)
-    private String apellido;
-
-    @Column(nullable = false, unique = true, length = 20)
+    @Column(nullable = true, unique = true, length = 20)
     private String dni;
 
-    @Column(name = "fecha_nacimiento", nullable = false)
+    @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(nullable = true, length = 20)
     private Sexo sexo;
 
     @Column(length = 30)
     private String telefono;
-
-    @Column(length = 100)
-    private String email;
 
     @Column(length = 200)
     private String direccion;
@@ -52,7 +47,7 @@ public class Paciente extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String alergias;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private EstadoPaciente estado = EstadoPaciente.ACTIVO;
+    @Column(name = "perfil_completo", nullable = false)
+    private Boolean perfilCompleto = false;
+
 }

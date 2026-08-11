@@ -8,10 +8,6 @@ public final class RolMapper {
     private RolMapper() {}
 
     public static RolResponse toResponse(Rol entity) {
-        return new RolResponse(
-            entity.getId(),
-            entity.getNombre(),
-            entity.getDescripcion()
-        );
+        return new RolResponse(entity.getId(),entity.getNombre(),entity.getDescripcion());
     }
 }

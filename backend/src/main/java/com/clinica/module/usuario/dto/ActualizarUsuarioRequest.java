@@ -1,13 +1,10 @@
 package com.clinica.module.usuario.dto;
-
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-
+import com.clinica.module.usuario.interfaces.I_DatosUsuariosRequest;
 public record ActualizarUsuarioRequest(
-    @Email(message = "El email debe ser válido")
+    String username,
     String email,
-
     String nombre,
-
     String apellido
-) {}
+
+
+) implements I_DatosUsuariosRequest{}

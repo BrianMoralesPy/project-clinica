@@ -6,6 +6,7 @@ import com.clinica.module.auth.dto.RegistroRequest;
 import com.clinica.module.auth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -32,7 +33,7 @@ public class AuthController {
      * Servicio que contiene toda la lógica de autenticación.
      */
     private final AuthService authService;
-
+    
     /**
      * Registra un nuevo paciente.
      *
@@ -53,7 +54,7 @@ public class AuthController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-
+    
     /**
      * Autentica un usuario utilizando username y contraseña.
      *

@@ -11,19 +11,9 @@ public class UsuarioMapper {
     private UsuarioMapper() {}
 
     public static UsuarioResponse toResponse(Usuario usuario) {
-        Set<String> roles = usuario.getRoles().stream()
-            .map(rol -> rol.getNombre())
-            .collect(Collectors.toSet());
+        Set<String> roles = usuario.getRoles().stream().map(rol -> rol.getNombre()).collect(Collectors.toSet());
 
-        return new UsuarioResponse(
-            usuario.getId(),
-            usuario.getUsername(),
-            usuario.getEmail(),
-            usuario.getNombre(),
-            usuario.getApellido(),
-            roles,
-            usuario.getEstado().name(),
-            usuario.getCreatedAt()
-        );
+        return new UsuarioResponse(usuario.getId(),usuario.getUsername(),usuario.getEmail(),usuario.getNombre(),usuario.getApellido(),roles,
+                                    usuario.getEstado().name(),usuario.getCreatedAt());
     }
 }

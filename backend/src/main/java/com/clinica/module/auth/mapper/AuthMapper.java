@@ -34,8 +34,8 @@ public class AuthMapper {
         // Convierte la colección de roles del usuario en un conjunto que contiene únicamente sus nombres.
         Set<String> roles = usuario.getRoles().stream().map(rol -> rol.getNombre()).collect(Collectors.toSet());
         // Construye el DTO que será enviado al frontend retornandolo.
-        return new AuthResponse.UsuarioResponse(usuario.getId(),usuario.getUsername(),usuario.getEmail(),
-                                                usuario.getNombre(),usuario.getApellido(),roles,usuario.getCreatedAt());
+        return new AuthResponse.UsuarioResponse(usuario.getId(),usuario.getUsername(),usuario.getEmail(),usuario.getNombre(),
+                                                usuario.getApellido(),roles,usuario.getCreatedAt());
     }
 
 

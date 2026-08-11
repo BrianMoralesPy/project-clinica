@@ -1,36 +1,25 @@
 package com.clinica.module.paciente.dto;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
+import com.clinica.module.paciente.interfaces.I_DatosPacientesRequest;
 import java.time.LocalDate;
 
+/**
+ * DTO utilizado para actualizar la información de un paciente existente.
+ *
+ * Contiene los datos mínimos necesarios para modificar
+ * la información de un paciente en el sistema.
+ *
+ * Las validaciones se ejecutan automáticamente
+ * antes de que el controlador invoque al servicio.
+ * ademas implementa la interfaz I_DatosPacientesRequest para garantizar que se cumplan los 
+ * contratos de datos necesarios para un paciente.
+ */
 public record ActualizarPacienteRequest(
-    @NotBlank
-    @Size(max = 100)
-    String nombre,
-
-    @NotBlank
-    @Size(max = 100)
-    String apellido,
-
-    @NotNull
-    LocalDate fechaNacimiento,
-
-    @NotBlank
-    String sexo,
-
-    @Size(max = 30)
+    // Datos del paciente
+    String dni, 
+    LocalDate fechaNacimiento, 
+    String sexo, 
     String telefono,
-
-    @Size(max = 100)
-    String email,
-
-    @Size(max = 200)
-    String direccion,
-
-    String grupoSanguineo,
-
+    String direccion, 
+    String grupoSanguineo, 
     String alergias
-) {}
+) implements I_DatosPacientesRequest{}

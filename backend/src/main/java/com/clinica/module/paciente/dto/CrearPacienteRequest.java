@@ -2,39 +2,37 @@ package com.clinica.module.paciente.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
+import com.clinica.module.paciente.interfaces.I_DatosPacientesRequest;
 import java.time.LocalDate;
-
+/**
+ * DTO utilizado para registrar un nuevo paciente.
+ *
+ * Contiene los datos mínimos necesarios para crear
+ * un paciente dentro del sistema.
+ */
 public record CrearPacienteRequest(
+    // Usuario
     @NotBlank
-    @Size(max = 100)
+    String username,
+    @NotBlank
+    String email,
+    @NotBlank
+    String password,
+    @NotBlank
     String nombre,
-
     @NotBlank
-    @Size(max = 100)
     String apellido,
-
+    // Paciente
     @NotBlank
-    @Size(max = 20)
     String dni,
-
     @NotNull
     LocalDate fechaNacimiento,
-
     @NotBlank
     String sexo,
-
-    @Size(max = 30)
     String telefono,
-
-    @Size(max = 100)
-    String email,
-
-    @Size(max = 200)
     String direccion,
-
     String grupoSanguineo,
-
     String alergias
-) {}
+
+) implements I_DatosPacientesRequest {}

@@ -6,6 +6,7 @@ import com.clinica.module.usuario.dto.ActualizarUsuarioRequest;
 import com.clinica.module.usuario.dto.CambiarEstadoRequest;
 import com.clinica.module.usuario.dto.UsuarioResponse;
 import com.clinica.module.usuario.entity.Usuario;
+import com.clinica.module.usuario.interfaces.I_DatosUsuariosRequest;
 import com.clinica.module.usuario.mapper.UsuarioMapper;
 import com.clinica.module.usuario.repository.UsuarioRepository;
 import com.clinica.shared.EstadoUsuario;
@@ -20,6 +21,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+
+    public void actualizarDatosUsuario(Usuario usuario, I_DatosUsuariosRequest request) {
+        if (request.username() != null) {
+            usuario.setUsername(request.username());
+        }
+        if (request.email() != null) {
+            usuario.setEmail(request.email());
+        }
+        if (request.nombre() != null) {
+            usuario.setNombre(request.nombre());
+        }
+        if (request.apellido() != null) {
+            usuario.setApellido(request.apellido());
+        }
+    }
 
     @Transactional(readOnly = true)
     public Page<UsuarioResponse> findAll(String search, EstadoUsuario estado, Pageable pageable) {
@@ -36,8 +52,7 @@ public class UsuarioService {
 
     @Transactional
     public UsuarioResponse update(Long id, ActualizarUsuarioRequest request) {
-        Usuario usuario = usuarioRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Usuario", id));
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuario", id));
 
         if (request.email() != null && !request.email().equals(usuario.getEmail())) {
             if (usuarioRepository.existsByEmail(request.email())) {

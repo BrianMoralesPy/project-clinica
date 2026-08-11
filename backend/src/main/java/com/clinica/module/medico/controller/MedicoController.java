@@ -4,7 +4,7 @@ import com.clinica.module.medico.dto.ActualizarMedicoRequest;
 import com.clinica.module.medico.dto.CrearMedicoRequest;
 import com.clinica.module.medico.dto.MedicoResponse;
 import com.clinica.module.medico.service.MedicoService;
-import com.clinica.shared.EstadoMedico;
+import com.clinica.shared.EstadoUsuario;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,9 +25,9 @@ public class MedicoController {
     @PreAuthorize("hasAnyRole('ADMIN', 'RECEPCION')")
     public ResponseEntity<Page<MedicoResponse>> findAll(
             @RequestParam(required = false) Long especialidadId,
-            @RequestParam(required = false) EstadoMedico estado,
+            @RequestParam(required = false) EstadoUsuario estado,
             Pageable pageable) {
-        return ResponseEntity.ok(medicoService.findAll(especialidadId, estado, pageable));
+        return null;
     }
 
     @GetMapping("/{id}")

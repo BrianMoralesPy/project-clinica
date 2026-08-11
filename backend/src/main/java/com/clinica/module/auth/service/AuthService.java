@@ -1,26 +1,22 @@
 package com.clinica.module.auth.service;
-
-import com.clinica.exception.BadRequestException;
 import com.clinica.exception.ResourceNotFoundException;
+
 import com.clinica.module.auth.dto.AuthResponse;
 import com.clinica.module.auth.dto.LoginRequest;
 import com.clinica.module.auth.dto.RegistroRequest;
 import com.clinica.module.auth.mapper.AuthMapper;
-import com.clinica.module.usuario.entity.Rol;
 import com.clinica.module.usuario.entity.Usuario;
-import com.clinica.module.usuario.repository.RolRepository;
 import com.clinica.module.usuario.repository.UsuarioRepository;
+import com.clinica.module.paciente.service.PacienteRegistrationService;
+
 import com.clinica.security.JwtTokenProvider;
-import com.clinica.shared.EstadoUsuario;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Set;
 
 /**
  * Servicio encargado de gestionar la autenticación
@@ -52,55 +48,24 @@ public class AuthService {
     private final UsuarioRepository usuarioRepository;
 
     /**
-     * Repositorio de roles.
+     * Servicio para crear pacientes.
      */
-    private final RolRepository rolRepository;
+    private final PacienteRegistrationService pacienteRegistrationService;
 
     /**
-     * Encripta las contraseñas antes de almacenarlas.
-     */
-    private final PasswordEncoder passwordEncoder;
-
-    /**
-     * Registra un nuevo usuario en el sistema.
+     * Registra un nuevo usuario y crea automáticamente
+     * su ficha de paciente asociada.
      *
-     * Flujo:
-     * 1. Verifica que el username no exista.
-     * 2. Verifica que el email no exista.
-     * 3. Obtiene el rol por defecto.
-     * 4. Encripta la contraseña.
-     * 5. Guarda el usuario.
-     * 6. Genera un JWT.
-     * 7. Devuelve la información para iniciar sesión.
+     * @param request DTO con los datos del nuevo usuario.
+     * @return DTO con el token JWT y la información del usuario.
      */
     @Transactional
     public AuthResponse register(RegistroRequest request) {
-        // Verifica que el nombre de usuario no esté registrado.
-        if (usuarioRepository.existsByUsername(request.username())) {
-            throw new BadRequestException("El username ya está en uso");
-        }
-        // Verifica que el correo electrónico sea único.
-        if (usuarioRepository.existsByEmail(request.email())) {
-            throw new BadRequestException("El email ya está registrado");
-        }
-        // Obtiene el rol por defecto asignado a los nuevos usuarios.
-        Rol rolPaciente = rolRepository.findByNombre("PACIENTE")
-            .orElseThrow(() -> new BadRequestException("Rol PACIENTE no encontrado"));
-        
-        Usuario usuario = new Usuario();
-        usuario.setUsername(request.username());
-        usuario.setEmail(request.email());
-        // Encripta la contraseña antes de almacenarla en la base de datos.
-        usuario.setPasswordHash(passwordEncoder.encode(request.password())); 
-        usuario.setNombre(request.nombre());
-        usuario.setApellido(request.apellido());
-        usuario.setEstado(EstadoUsuario.ACTIVO);
-        usuario.setRoles(Set.of(rolPaciente));
-        // Persiste el nuevo usuario.
-        usuario = usuarioRepository.save(usuario); 
-        // Genera un token para que el usuario quede autenticado inmediatamente después del registro.
+
+        Usuario usuario = pacienteRegistrationService.crearPacienteIncompleto(request.username(),request.email(),request.password(),request.nombre(),request.apellido());
+
         String token = jwtTokenProvider.generateToken(usuario.getUsername());
-        // Convierte la entidad Usuario en la respuesta que consumirá el frontend.
+
         return new AuthResponse(token,"Bearer",86400L,AuthMapper.toUsuarioResponse(usuario));
     }
     /**
