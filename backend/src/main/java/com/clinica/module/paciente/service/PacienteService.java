@@ -200,9 +200,7 @@ public class PacienteService {
     @Transactional
     public PacienteResponse create(CrearPacienteRequest request) {
 
-        if (pacienteRepository.existsByDni(request.dni())) {
-            throw new BadRequestException("Ya existe un paciente con el DNI: " + request.dni());
-        }
+        if (pacienteRepository.existsByDni(request.dni())) { throw new BadRequestException("Ya existe un paciente con el DNI: " + request.dni());}
         // Crea el Usuario y el Paciente vacío
         Usuario usuario = pacienteRegistrationService.crearPacienteIncompleto(request.username(),request.email(),request.password(),request.nombre(),request.apellido());
         // Recupera el Paciente recién creado
@@ -238,11 +236,13 @@ public class PacienteService {
 
         return PacienteMapper.toResponse(paciente);
     }
-    /* Permite al administrador eliminar cualquier paciente, cambiando el estado del usuario asociado a INACTIVO.*/
+    /* Permite al administrador desactivar cualquier paciente, cambiando el estado del usuario asociado a INACTIVO.*/
     @Transactional
     public void softDelete(Long id) {
         Paciente paciente = pacienteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Paciente", id));
         Usuario usuario = paciente.getUsuario();
         usuario.setEstado(EstadoUsuario.INACTIVO);
+        usuarioRepository.save(usuario);
+        
     }
 }

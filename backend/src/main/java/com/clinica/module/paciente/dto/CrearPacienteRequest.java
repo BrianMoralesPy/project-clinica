@@ -30,9 +30,13 @@ public record CrearPacienteRequest(
     LocalDate fechaNacimiento,
     @NotBlank
     String sexo,
+    @NotBlank
     String telefono,
+    @NotBlank
     String direccion,
+    @NotBlank
     String grupoSanguineo,
+    @NotBlank
     String alergias
 
 ) implements I_DatosPacientesRequest {}

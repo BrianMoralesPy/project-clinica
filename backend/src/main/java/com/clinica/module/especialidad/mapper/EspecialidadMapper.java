@@ -8,10 +8,6 @@ public final class EspecialidadMapper {
     private EspecialidadMapper() {}
 
     public static EspecialidadResponse toResponse(Especialidad entity) {
-        return new EspecialidadResponse(
-            entity.getId(),
-            entity.getNombre(),
-            entity.getDescripcion()
-        );
+        return new EspecialidadResponse(entity.getId(),entity.getNombre(),entity.getDescripcion());
     }
 }

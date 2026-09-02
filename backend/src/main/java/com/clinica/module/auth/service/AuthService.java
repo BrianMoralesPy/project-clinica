@@ -64,7 +64,7 @@ public class AuthService {
 
         Usuario usuario = pacienteRegistrationService.crearPacienteIncompleto(request.username(),request.email(),request.password(),request.nombre(),request.apellido());
 
-        String token = jwtTokenProvider.generateToken(usuario.getUsername());
+        String token = jwtTokenProvider.generateTokenBuilder(usuario.getUsername());
 
         return new AuthResponse(token,"Bearer",86400L,AuthMapper.toUsuarioResponse(usuario));
     }

@@ -38,7 +38,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // Busca el usuario en la base de datos.
         Usuario usuario = usuarioRepository.findByUsernameOrEmail(identifier, identifier).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + identifier));
         // Convierte los roles del usuario en autoridades reconocidas por Spring Security.
-        var authorities = usuario.getRoles().stream().map(rol -> new SimpleGrantedAuthority("ROLE_" + rol.getNombre())).collect(Collectors.toList());
+        var authorities = usuario.getRoles().stream().map(rol -> new SimpleGrantedAuthority("ROLE_" + rol.getNombre())).collect(Collectors.toList()); // ACA SE GESTIONA EL ROL DEL USUARIO, 
+                                                                                                                                                        //SE AGREGA EL PREFIJO ROLE_ PARA QUE SPRING SECURITY LO RECONOZCA COMO ROL
         return new User(usuario.getUsername(),usuario.getPasswordHash(),usuario.getEstado().name().equals("ACTIVO"),true,true,true,authorities);
     }
 }

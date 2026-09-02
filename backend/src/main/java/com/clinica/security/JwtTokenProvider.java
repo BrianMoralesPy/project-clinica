@@ -40,7 +40,7 @@ public class JwtTokenProvider {
      */
     public String generateToken(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return generateToken(userDetails.getUsername());
+        return generateTokenBuilder(userDetails.getUsername());
     }
 
     /**
@@ -51,7 +51,7 @@ public class JwtTokenProvider {
      * - Fecha de expiración.
      * - Clave secreta.
      */
-    public String generateToken(String username) {
+    public String generateTokenBuilder(String username) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpiration);
 
